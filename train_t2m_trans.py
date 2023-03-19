@@ -26,7 +26,7 @@ args = option_trans.get_args_parser()
 torch.manual_seed(args.seed)
 
 args.out_dir = os.path.join(args.out_dir, f'{args.exp_name}')
-args.vq_dir= os.path.join("./dataset/KIT-ML" if args.dataname == 'kit' else "./dataset/HumanML3D", f'{args.vq_name}')
+args.vq_dir= os.path.join("./dataset/KIT-ML" if args.dataname == 'kit' else "/content/T2M-GPT/dataset/HumanML3D/HumanML3D", f'{args.vq_name}')
 os.makedirs(args.out_dir, exist_ok = True)
 os.makedirs(args.vq_dir, exist_ok = True)
 
@@ -39,7 +39,7 @@ logger.info(json.dumps(vars(args), indent=4, sort_keys=True))
 train_loader_token = dataset_tokenize.DATALoader(args.dataname, 1, unit_length=2**args.down_t)
 
 from utils.word_vectorizer import WordVectorizer
-w_vectorizer = WordVectorizer('./glove', 'our_vab')
+w_vectorizer = WordVectorizer('/content/T2M-GPT/glove', 'our_vab')
 val_loader = dataset_TM_eval.DATALoader(args.dataname, False, 32, w_vectorizer)
 
 dataset_opt_path = 'checkpoints/kit/Comp_v6_KLD005/opt.txt' if args.dataname == 'kit' else 'checkpoints/t2m/Comp_v6_KLD005/opt.txt'
